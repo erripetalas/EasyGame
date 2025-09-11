@@ -1,6 +1,7 @@
-using EasyGame.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using EasyGame.Data;
+using EasyGame.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,11 +11,40 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+// Configure Identity with roles
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()  // enable roles
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddUserStore<AutoRoleAssignmentUser>();  // use custom user store for auto role assignment
+
+// Add role manager service
+builder.Services.AddScoped<RoleManager<IdentityRole>>();
+
 builder.Services.AddControllersWithViews();
 
-var app = builder.Build();
+var app = builder.Build(); 
+
+// Create roles and default owner on startup
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+        var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+
+        // Create roles and default owner account
+        await Roles.CreateRoles(roleManager, userManager);
+
+        // Fix any existing users without roles
+        await Roles.FixAllUsersWithoutRoles(userManager);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while creating roles");
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -24,23 +54,20 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
-
-app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
-
-app.MapRazorPages()
-   .WithStaticAssets();
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapRazorPages();
 
 app.Run();

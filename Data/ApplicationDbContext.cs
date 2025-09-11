@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using EasyGame.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace EasyGame.Data
@@ -9,5 +10,7 @@ namespace EasyGame.Data
             : base(options)
         {
         }
+        public DbSet<Product> Products { get; set; }
+
     }
 }

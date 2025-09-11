@@ -1,0 +1,66 @@
+﻿@model EasyGame.ViewModels.UserViewModel
+
+@{
+    ViewData["Title"] = "User Details";
+}
+
+<h1>User Details</h1>
+
+<div>
+    <h4>User Information</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EmailConfirmed)
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.EmailConfirmed)
+            {
+                <span class="badge bg-success">Confirmed</span>
+            }
+            else
+            {
+                <span class="badge bg-warning">Not Confirmed</span>
+            }
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Roles)
+        </dt>
+        <dd class="col-sm-10">
+            @if (!string.IsNullOrEmpty(Model.Roles))
+            {
+                @Model.Roles
+            }
+            else
+            {
+                <span class="text-muted">No roles assigned</span>
+            }
+        </dd>
+
+        <dt class="col-sm-2">
+            User ID
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">Edit</a> |
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

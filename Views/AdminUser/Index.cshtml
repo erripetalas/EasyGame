@@ -1,0 +1,48 @@
+﻿@model IEnumerable<EasyGame.ViewModels.UserViewModel>
+
+@{
+    ViewData["Title"] = "User Management";
+}
+
+<h1>User Management</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New User</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Username</th>
+            <th>Email Confirmed</th>
+            <th>Roles</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Email</td>
+                <td>@item.UserName</td>
+                <td>
+                    @if (item.EmailConfirmed)
+                    {
+                        <span class="badge bg-success">Confirmed</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning">Not Confirmed</span>
+                    }
+                </td>
+                <td>@item.Roles</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
