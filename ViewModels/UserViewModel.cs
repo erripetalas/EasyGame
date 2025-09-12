@@ -17,7 +17,7 @@ namespace EasyGame.ViewModels
         public bool EmailConfirmed { get; set; }
 
         [Display(Name = "Roles")]
-        public string Roles { get; set; }  // Changed to string to match your controller
+        public string Roles { get; set; }  
     }
 
     public class CreateUserViewModel
@@ -66,6 +66,6 @@ namespace EasyGame.ViewModels
         [Display(Name = "Role")]
         public string SelectedRole { get; set; }
 
-        public SelectList Roles { get; set; }  // Changed from AllRoles to match your controller
+        public SelectList Roles { get; set; }  
     }
 }

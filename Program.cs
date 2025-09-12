@@ -15,7 +15,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()  // enable roles
     .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddUserStore<AutoRoleAssignmentUser>();  // use custom user store for auto role assignment
+    .AddUserStore<AutoRoleAssignmentUser>();  // auto assign roles 
+
+builder.Services.AddScoped<ICartService, CartService>(); // Add cart service 
 
 // Add role manager service
 builder.Services.AddScoped<RoleManager<IdentityRole>>();

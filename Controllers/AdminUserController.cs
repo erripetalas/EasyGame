@@ -205,7 +205,6 @@ namespace EasyGame.Controllers
                 return NotFound();
             }
 
-            // Prevent deleting the owner account - update with your owner email
             if (user.Email == "Admin@hotmail.com")  
             {
                 return BadRequest("Cannot delete the owner account.");
@@ -232,8 +231,7 @@ namespace EasyGame.Controllers
             var user = await _userManager.FindByIdAsync(id);
             if (user != null)
             {
-                // Prevent deleting the owner account - update with your owner email
-                if (user.Email == "admin@example.com")  // Update this to match your owner email from Roles.cs
+                if (user.Email == "admin@example.com")  
                 {
                     return BadRequest("Cannot delete the owner account.");
                 }

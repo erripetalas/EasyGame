@@ -1,54 +1,167 @@
 ﻿@model EasyGame.Models.Product
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = Model.Name;
 }
 
-<h1>Details</h1>
+@section Styles {
+    <link rel="stylesheet" href="~/css/products.css" asp-append-version="true" />
+}
 
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StockQuantity)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StockQuantity)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageUrl)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index">Products</a></li>
+            <li class="breadcrumb-item active">@Model.Name</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Product Image Section -->
+        <div class="col-md-5">
+            <div class="product-image">
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" alt="@Model.Name" onerror="this.style.display='none'; document.getElementById('placeholder-@Model.Id').style.display='block';" />
+                    <div id="placeholder-@Model.Id" class="placeholder-image" style="display:none;">
+                        @if (Model.Category == "Books")
+                        {
+                            <i class="bi bi-book"></i>
+                        }
+                        else if (Model.Category == "Games")
+                        {
+                            <i class="bi bi-controller"></i>
+                        }
+                        else
+                        {
+                            <i class="bi bi-box"></i>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="placeholder-image">
+                        @if (Model.Category == "Books")
+                        {
+                            <i class="bi bi-book"></i>
+                        }
+                        else if (Model.Category == "Games")
+                        {
+                            <i class="bi bi-controller"></i>
+                        }
+                        else
+                        {
+                            <i class="bi bi-box"></i>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Product Information Section -->
+        <div class="col-md-7">
+            <div class="card product-info-card">
+                <div class="card-body">
+                    <div class="product-header">
+                        <span class="category-badge">@Model.Category</span>
+                        <h2 class="mb-3">@Model.Name</h2>
+                        <p class="text-muted fs-5">@Model.Description</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="price-display mb-2">
+                            $@Model.Price.ToString("F2")
+                        </div>
+
+                        @if (Model.StockQuantity > 10)
+                        {
+                            <span class="badge bg-success stock-badge">✓ In Stock</span>
+                            <small class="text-muted ms-2">(@Model.StockQuantity available)</small>
+                        }
+                        else if (Model.StockQuantity > 0)
+                        {
+                            <span class="badge bg-warning stock-badge">Low Stock</span>
+                            <small class="text-muted ms-2">Only @Model.StockQuantity left!</small>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger stock-badge">Out of Stock</span>
+                        }
+                    </div>
+
+                    @* Add to Cart Section *@
+                    @if (Model.StockQuantity > 0)
+                    {
+                        <div class="add-to-cart-section">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                                    <input type="hidden" name="productId" value="@Model.Id" />
+                                    <div class="row align-items-end">
+                                        <div class="col-auto">
+                                            <label for="quantity" class="form-label">Quantity</label>
+                                            <input type="number" name="quantity" value="1" min="1" max="@Model.StockQuantity" class="form-control" style="width: 100px;" />
+                                        </div>
+                                        <div class="col">
+                                            <button type="submit" class="btn btn-primary btn-lg">
+                                                <i class="bi bi-cart-plus"></i> Add to Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            }
+                            else
+                            {
+                                <p class="mb-2">Please login to purchase this item</p>
+                                <a href="/Identity/Account/Login" class="btn btn-primary btn-lg">
+                                    <i class="bi bi-person-circle"></i> Login to Shop
+                                </a>
+                            }
+                        </div>
+                    }
+
+                    @* Admin Section - Only visible to Owners *@
+                    @if (User.IsInRole("Owner"))
+                    {
+                        <div class="alert alert-info mt-3">
+                            <strong>Admin Information:</strong>
+                            <dl class="row mb-0 mt-2">
+                                <dt class="col-sm-3">Product ID:</dt>
+                                <dd class="col-sm-9">@Model.Id</dd>
+
+                                <dt class="col-sm-3">Image URL:</dt>
+                                <dd class="col-sm-9">
+                                    @if (string.IsNullOrEmpty(Model.ImageUrl))
+                                    {
+                                        <em>No image URL set</em>
+                                    }
+                                    else
+                                    {
+                                        <small>@Model.ImageUrl</small>
+                                    }
+                                </dd>
+                            </dl>
+                        </div>
+                    }
+
+                    @* Action Buttons *@
+                    <div class="mt-4">
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left"></i> Back to Products
+                        </a>
+
+                        @if (User.IsInRole("Owner"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+                                <i class="bi bi-pencil"></i> Edit Product
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
