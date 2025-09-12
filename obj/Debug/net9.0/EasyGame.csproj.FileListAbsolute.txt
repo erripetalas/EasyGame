@@ -333,7 +333,6 @@ C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\a3ygkwa5zy-2z0n
 C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\nezrqnk58p-muycvpuwrr.gz
 C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\v0zgfp0y55-87fc7y1x7t.gz
 C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\yfc7ypekbg-mlv21k5csn.gz
-C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\za38ef39eu-b9sayid5wm.gz
 C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\mi3iypiqbo-61n19gt1b8.gz
 C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\moih6ej1rd-xtxxf3hu2r.gz
 C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\5z4w43jfn9-bqjiyaj88i.gz
@@ -409,3 +408,5 @@ C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\EasyGame.pdb
 C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\EasyGame.genruntimeconfig.cache
 C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\ref\EasyGame.dll
 C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\h2v21w0hlf-5vmsbh7bdp.gz
+C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\knos6bs1lc-5hwdgj9ovz.gz
+C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\za38ef39eu-y2hkbjneaj.gz

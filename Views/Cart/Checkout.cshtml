@@ -3,38 +3,81 @@
     ViewData["Title"] = "Checkout";
 }
 
-<h2>Checkout</h2>
-<h3>Order Summary</h3>
+@section Styles {
+    <link rel="stylesheet" href="~/css/cart.css" asp-append-version="true" />
+}
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Subtotal</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Product.Name</td>
-                <td>@item.Quantity</td>
-                <td>$@item.Product.Price.ToString("F2")</td>
-                <td>$@((item.Product.Price * item.Quantity).ToString("F2"))</td>
-            </tr>
-        }
-    </tbody>
-    <tfoot>
-        <tr>
-            <th colspan="3">Total Amount:</th>
-            <th>$@ViewBag.CartTotal.ToString("F2")</th>
-        </tr>
-    </tfoot>
-</table>
+<h1>Checkout</h1>
 
-<form asp-action="ProcessOrder" method="post">
-    <button type="submit" class="btn btn-success btn-lg">Complete Purchase</button>
-    <a asp-action="Index" class="btn btn-secondary btn-lg">Back to Cart</a>
-</form>
+<div class="row">
+    <div class="col-lg-8">
+        <div class="checkout-form">
+            <div class="checkout-section">
+                <h4><i class="bi bi-bag-check"></i> Order Review</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Product.Name</td>
+                                <td>@item.Quantity</td>
+                                <td>$@item.Product.Price.ToString("F2")</td>
+                                <td>$@((item.Product.Price * item.Quantity).ToString("F2"))</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="checkout-section">
+                <h4><i class="bi bi-credit-card"></i> Payment Method</h4>
+                <div class="payment-options">
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="radio" name="paymentMethod" id="cardPayment" value="card" checked>
+                        <label class="form-check-label" for="cardPayment">
+                            <i class="bi bi-credit-card-2-front"></i> Credit/Debit Card
+                        </label>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="radio" name="paymentMethod" id="cashPayment" value="cash">
+                        <label class="form-check-label" for="cashPayment">
+                            <i class="bi bi-cash"></i> Cash on Delivery
+                        </label>
+                    </div>
+                </div>
+                <div class="alert alert-info mt-3">
+                    <i class="bi bi-info-circle"></i> Payment processing is simulated for this demo.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="cart-summary">
+            <h3>Order Summary</h3>
+            <div class="summary-row">
+                <span><strong>Total Amount:</strong></span>
+                <span><strong>$@ViewBag.CartTotal.ToString("F2")</strong></span>
+            </div>
+
+            <form asp-action="ProcessOrder" method="post">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-checkout" onclick="return confirm('Confirm your order?');">
+                    <i class="bi bi-check-circle"></i> Place Order
+                </button>
+            </form>
+
+            <a href="@Url.Action("Index")" class="btn btn-outline-light w-100 mt-2">
+                <i class="bi bi-arrow-left"></i> Back to Cart
+            </a>
+        </div>
+    </div>
+</div>

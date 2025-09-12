@@ -3,51 +3,57 @@
     ViewData["Title"] = "Order History";
 }
 
-<h2>Your Order History</h2>
+@section Styles {
+    <link rel="stylesheet" href="~/css/cart.css" asp-append-version="true" />
+}
+
+<h1>Order History</h1>
 
 @if (Model.Any())
 {
     @foreach (var order in Model)
     {
-        <div class="card mb-3">
-            <div class="card-header">
-                <strong>Order #@order.Id</strong> - @order.OrderDate.ToString("MMM dd, yyyy h:mm tt")
-                <span class="badge bg-success float-end">@order.Status</span>
+        <div class="order-card">
+            <div class="order-header">
+                <div>
+                    <h5 class="mb-0">Order #@order.Id</h5>
+                    <small>@order.OrderDate.ToString("MMMM dd, yyyy hh:mm tt")</small>
+                </div>
+                <div class="text-end">
+                    <span class="order-status">@order.Status</span>
+                    <h5 class="mb-0 mt-2">$@order.TotalAmount.ToString("F2")</h5>
+                </div>
             </div>
-            <div class="card-body">
-                <table class="table table-sm">
-                    <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Subtotal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in order.OrderItems)
-                        {
-                            <tr>
-                                <td>@item.Product.Name</td>
-                                <td>@item.Quantity</td>
-                                <td>$@item.Price.ToString("F2")</td>
-                                <td>$@((item.Price * item.Quantity).ToString("F2"))</td>
-                            </tr>
-                        }
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th colspan="3">Total:</th>
-                            <th>$@order.TotalAmount.ToString("F2")</th>
-                        </tr>
-                    </tfoot>
-                </table>
+            <div class="order-body">
+                <h6>Items:</h6>
+                <ul class="order-items-list">
+                    @foreach (var item in order.OrderItems)
+                    {
+                        <li class="order-item">
+                            <div>
+                                <strong>@item.Product.Name</strong>
+                                <span class="text-muted ms-2">x @item.Quantity</span>
+                            </div>
+                            <div>
+                                $@((item.Price * item.Quantity).ToString("F2"))
+                            </div>
+                        </li>
+                    }
+                </ul>
             </div>
         </div>
     }
 }
 else
 {
-    <p>You haven't placed any orders yet.</p>
-    <a asp-action="Index" asp-controller="Products" class="btn btn-primary">Start Shopping</a>
+    <div class="empty-cart">
+        <div class="empty-cart-icon">
+            <i class="bi bi-bag-x"></i>
+        </div>
+        <h2>No Orders Yet</h2>
+        <p>You haven't placed any orders yet.</p>
+        <a href="@Url.Action("Index", "Products")" class="btn btn-primary">
+            <i class="bi bi-shop"></i> Start Shopping
+        </a>
+    </div>
 }
