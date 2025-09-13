@@ -6,9 +6,18 @@
 
 @section Styles {
     <link rel="stylesheet" href="~/css/products.css" asp-append-version="true" />
+    <style>
+        /* Page-specific footer spacing fix */
+        body {
+            padding-bottom: 60px;
+        }
+        .main-container {
+            margin-bottom: 4rem !important;
+        }
+    </style>
 }
 
-<div class="container mt-4">
+<div class="container mt-4 product-details-container">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a asp-action="Index">Products</a></li>
