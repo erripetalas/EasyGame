@@ -6,15 +6,6 @@
 
 @section Styles {
     <link rel="stylesheet" href="~/css/products.css" asp-append-version="true" />
-    <style>
-        /* Page-specific footer spacing fix */
-        body {
-            padding-bottom: 60px;
-        }
-        .main-container {
-            margin-bottom: 4rem !important;
-        }
-    </style>
 }
 
 <div class="container mt-4 product-details-container">
@@ -126,30 +117,6 @@
                                     <i class="bi bi-person-circle"></i> Login to Shop
                                 </a>
                             }
-                        </div>
-                    }
-
-                    @* Admin Section - Only visible to Owners *@
-                    @if (User.IsInRole("Owner"))
-                    {
-                        <div class="alert alert-info mt-3">
-                            <strong>Admin Information:</strong>
-                            <dl class="row mb-0 mt-2">
-                                <dt class="col-sm-3">Product ID:</dt>
-                                <dd class="col-sm-9">@Model.Id</dd>
-
-                                <dt class="col-sm-3">Image URL:</dt>
-                                <dd class="col-sm-9">
-                                    @if (string.IsNullOrEmpty(Model.ImageUrl))
-                                    {
-                                        <em>No image URL set</em>
-                                    }
-                                    else
-                                    {
-                                        <small>@Model.ImageUrl</small>
-                                    }
-                                </dd>
-                            </dl>
                         </div>
                     }
 

@@ -1,11 +1,27 @@
 ﻿@* Views/Products/Index.cshtml *@
 @model IEnumerable<EasyGame.Models.Product>
-
 @{
     ViewData["Title"] = "Products";
+    var currentCategory = ViewData["CurrentCategory"] as string;
+    var pageTitle = string.IsNullOrEmpty(currentCategory) ? "All Products" : currentCategory;
 }
 
-<h1>Products</h1>
+@section Styles {
+    <link rel="stylesheet" href="~/css/productspage.css" asp-append-version="true" />
+}
+
+<div class="products-header">
+    <h1>@pageTitle</h1>
+    @if (!string.IsNullOrEmpty(currentCategory))
+    {
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index">All Products</a></li>
+                <li class="breadcrumb-item active">@currentCategory</li>
+            </ol>
+        </nav>
+    }
+</div>
 
 @if (TempData["Message"] != null)
 {
@@ -17,53 +33,125 @@
 
 @if (User.IsInRole("Owner"))
 {
-    <p>
-        <a asp-action="Create" class="btn btn-success">Create New Product</a>
-    </p>
+    <div class="admin-controls">
+        <a asp-action="Create" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Create New Product
+        </a>
+    </div>
 }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.Name)</th>
-            <th>@Html.DisplayNameFor(model => model.Description)</th>
-            <th>@Html.DisplayNameFor(model => model.Price)</th>
-            <th>@Html.DisplayNameFor(model => model.StockQuantity)</th>
-            <th>@Html.DisplayNameFor(model => model.Category)</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                <td>@Html.DisplayFor(modelItem => item.Description)</td>
-                <td>$@Html.DisplayFor(modelItem => item.Price)</td>
-                <td>@Html.DisplayFor(modelItem => item.StockQuantity)</td>
-                <td>@Html.DisplayFor(modelItem => item.Category)</td>
-                <td>
-                    @* View Details button for everyone *@
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">View Details</a>
+<div class="products-grid">
+    @foreach (var item in Model)
+    {
+        <div class="product-card">
+            <div class="product-image">
+                @if (!string.IsNullOrEmpty(item.ImageUrl))
+                {
+                    <img src="@item.ImageUrl" alt="@item.Name" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                    <div class="placeholder-image" style="display:none;">
+                        @if (item.Category == "Books")
+                        {
+                            <i class="bi bi-book"></i>
+                        }
+                        else if (item.Category == "Games")
+                        {
+                            <i class="bi bi-controller"></i>
+                        }
+                        else
+                        {
+                            <i class="bi bi-box"></i>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="placeholder-image">
+                        @if (item.Category == "Books")
+                        {
+                            <i class="bi bi-book"></i>
+                        }
+                        else if (item.Category == "Games")
+                        {
+                            <i class="bi bi-controller"></i>
+                        }
+                        else
+                        {
+                            <i class="bi bi-box"></i>
+                        }
+                    </div>
+                }
 
-                    @if (User.Identity.IsAuthenticated && item.StockQuantity > 0)
-                    {
-                        <form asp-controller="Cart" asp-action="AddToCart" method="post" class="d-inline">
-                            <input type="hidden" name="productId" value="@item.Id" />
-                            <input type="number" name="quantity" value="1" min="1" max="@item.StockQuantity" style="width: 60px;" />
-                            <button type="submit" class="btn btn-sm btn-primary">Add to Cart</button>
-                        </form>
-                    }
-                    else if (item.StockQuantity == 0)
-                    {
-                        <span class="text-danger">Out of Stock</span>
-                    }
-                    else
-                    {
-                        <a href="/Identity/Account/Login" class="btn btn-sm btn-secondary">Login to Shop</a>
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                <div class="category-badge">@item.Category</div>
+
+                @if (item.StockQuantity <= 0)
+                {
+                    <div class="stock-overlay">
+                        <span>Out of Stock</span>
+                    </div>
+                }
+                else if (item.StockQuantity <= 5)
+                {
+                    <div class="low-stock-badge">Only @item.StockQuantity left!</div>
+                }
+            </div>
+
+            <div class="product-info">
+                <h3 class="product-name">@item.Name</h3>
+                <p class="product-description">@item.Description</p>
+
+                <div class="product-footer">
+                    <div class="price-section">
+                        <span class="price">$@item.Price.ToString("F2")</span>
+                        <span class="stock-info">@item.StockQuantity in stock</span>
+                    </div>
+
+                    <div class="product-actions">
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-eye"></i> Details
+                        </a>
+
+                        @if (User.Identity.IsAuthenticated && item.StockQuantity > 0)
+                        {
+                            <form asp-controller="Cart" asp-action="AddToCart" method="post" class="add-to-cart-form">
+                                <input type="hidden" name="productId" value="@item.Id" />
+                                <div class="quantity-controls">
+                                    <input type="number" name="quantity" value="1" min="1" max="@item.StockQuantity" class="quantity-input" />
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        <i class="bi bi-cart-plus"></i> Add to Cart
+                                    </button>
+                                </div>
+                            </form>
+                        }
+                        else if (item.StockQuantity == 0)
+                        {
+                            <button class="btn btn-secondary btn-sm" disabled>
+                                <i class="bi bi-x-circle"></i> Out of Stock
+                            </button>
+                        }
+                        else
+                        {
+                            <a href="/Identity/Account/Login" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-person-circle"></i> Login to Shop
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (!Model.Any())
+{
+    <div class="no-products">
+        <div class="no-products-content">
+            <i class="bi bi-box-seam"></i>
+            <h3>No products found</h3>
+            <p>@(string.IsNullOrEmpty(currentCategory) ? "There are no products available at the moment." : $"No products found in the {currentCategory} category.")</p>
+            @if (!string.IsNullOrEmpty(currentCategory))
+            {
+                <a asp-action="Index" class="btn btn-primary">View All Products</a>
+            }
+        </div>
+    </div>
+}

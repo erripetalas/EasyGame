@@ -2,7 +2,90 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@section Styles {
+    <link rel="stylesheet" href="~/css/MainHero.css" asp-append-version="true" />
+}
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Welcome to <span class="brand-highlight">EasyGame</span>
+            </h1>
+            <p class="hero-subtitle">
+                Your one-stop destination for games, books, and toys.
+                Discover amazing products at unbeatable prices.
+            </p>
+            <div class="hero-buttons">
+                <a asp-controller="Products" asp-action="Index" class="btn-hero btn-primary-hero">
+                    <i class="bi bi-shop"></i> Shop Now
+                </a>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="bi bi-controller"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Games</h3>
+                    <p>Latest releases</p>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="bi bi-book"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Books</h3>
+                    <p>All genres</p>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="bi bi-box"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Toys</h3>
+                    <p>For all ages</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-truck"></i>
+                    </div>
+                    <h4>Fast Delivery</h4>
+                    <p>Quick and reliable shipping to your doorstep</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <h4>Secure Shopping</h4>
+                    <p>Your data and payments are safe with us</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-headset"></i>
+                    </div>
+                    <h4>24/7 Support</h4>
+                    <p>We're here to help whenever you need us</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

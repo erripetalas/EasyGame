@@ -271,6 +271,13 @@
     margin-top: 1.5rem !important;
 }
 
+/* Product page specific container - ensures proper spacing from footer */
+.product-details-container {
+    min-height: calc(100vh - 200px); /* Account for navbar and footer */
+    padding-bottom: 2rem;
+    margin-bottom: 0; /* Remove bottom margin to prevent overlap */
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .product-image {
@@ -290,11 +297,10 @@
         font-size: 1rem;
         padding: 0.625rem 1.5rem;
     }
-}
 
-/* Product page specific footer fix */
-.product-details-container {
-    min-height: 500px;
-    padding-bottom: 4rem !important;
-    margin-bottom: 2rem;
+    /* Mobile specific adjustments for footer spacing */
+    .product-details-container {
+        min-height: calc(100vh - 220px); /* Account for mobile navbar and footer */
+        padding-bottom: 1rem;
+    }
 }

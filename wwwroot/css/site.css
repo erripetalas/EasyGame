@@ -6,10 +6,16 @@
     --danger-color: #e74c3c;
     --dark-color: #2c3e50;
     --light-color: #ecf0f1;
+    --navbar-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --footer-bg: linear-gradient(135deg, #434343 0%, #000000 100%);
     --border-radius: 8px;
     --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     --transition: all 0.3s ease;
+    --footer-height: 60px;
 }
+
+/* Import Lato font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 /* Global Styles */
 html {
@@ -19,42 +25,92 @@ html {
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background-attachment: fixed; /* Keep gradient fixed during scroll */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     margin: 0;
     padding: 0;
+    padding-bottom: var(--footer-height); /* Add consistent bottom padding */
+    font-weight: 400;
+    line-height: 1.6;
 }
 
 /* Wrapper for main content - ensure it grows */
 .content-wrapper {
-    flex: 1;
+    flex: 1 0 auto; /* Changed to prevent shrinking */
     display: flex;
     flex-direction: column;
+    min-height: calc(100vh - var(--footer-height)); /* Ensure minimum height */
+    background: transparent; /* Ensure no background interference */
+}
+
+/* Typography Hierarchy with Lato */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700; /* Bold for all headings */
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
+    color: var(--dark-color);
+}
+
+h1 {
+    font-size: 2.25rem;
+    font-weight: 900; /* Extra bold for main titles */
+}
+
+h2 {
+    font-size: 1.875rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+h4 {
+    font-size: 1.25rem;
+}
+
+h5 {
+    font-size: 1.125rem;
+}
+
+h6 {
+    font-size: 1rem;
+    font-weight: 600; /* Semi-bold for smallest heading */
+}
+
+p, span, div, li {
+    font-family: 'Lato', sans-serif;
+    line-height: 1.6;
 }
 
 /* Enhanced Navigation */
 .navbar {
-    background: white !important;
-    box-shadow: var(--box-shadow);
+    background: var(--navbar-bg) !important;
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
     padding: 1rem 0;
+    flex-shrink: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .navbar-brand {
-    font-weight: bold;
+    font-weight: 700;
     font-size: 1.5rem;
-    color: var(--primary-color) !important;
+    color: white !important;
     transition: var(--transition);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
     .navbar-brand:hover {
         transform: scale(1.05);
+        color: #f0f0f0 !important;
     }
 
 .nav-link {
-    color: var(--dark-color) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
     font-weight: 500;
     margin: 0 0.5rem;
     transition: var(--transition);
@@ -62,7 +118,8 @@ body {
 }
 
     .nav-link:hover {
-        color: var(--primary-color) !important;
+        color: white !important;
+        transform: translateY(-1px);
     }
 
     .nav-link::after {
@@ -72,7 +129,7 @@ body {
         left: 0;
         width: 0;
         height: 2px;
-        background: var(--primary-color);
+        background: rgba(255, 255, 255, 0.8);
         transition: width 0.3s ease;
     }
 
@@ -80,7 +137,59 @@ body {
         width: 100%;
     }
 
-/* Main Container */
+/* Dropdown menu styling */
+.dropdown-menu {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-item {
+    color: var(--dark-color);
+    transition: var(--transition);
+}
+
+    .dropdown-item:hover {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+        color: var(--primary-color);
+    }
+
+/* Remove underline from dropdown toggle */
+.navbar-nav .nav-link.dropdown-toggle {
+    text-decoration: none !important;
+}
+
+    .navbar-nav .nav-link.dropdown-toggle:hover {
+        text-decoration: none !important;
+    }
+
+    /* Fix for the blue line under Products dropdown */
+    .navbar-nav .nav-link.dropdown-toggle::after {
+        border: none !important;
+        content: none !important;
+    }
+
+/* Override any existing nav-link hover effects for dropdowns */
+.navbar-nav .dropdown .nav-link::after {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+/* Ensure dropdown arrow shows properly */
+.dropdown-toggle::after {
+    display: inline-block;
+    margin-left: 0.255em;
+    vertical-align: 0.255em;
+    content: "";
+    border-top: 0.3em solid;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0;
+    border-left: 0.3em solid transparent;
+}
+
+/* Main Container - Now transparent to show gradient */
 .container {
     flex: 1;
     width: 100%;
@@ -88,26 +197,29 @@ body {
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
+    background: transparent;
 }
 
 .main-container {
-    background: white;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
+    background: transparent; /* Transparent to show gradient */
     padding: 2rem;
     margin-top: 2rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     min-height: 400px;
+    flex: 1 0 auto; /* Ensure it grows and doesn't shrink */
 }
 
 /* Enhanced Buttons */
 .btn {
     border-radius: var(--border-radius);
     padding: 0.5rem 1.5rem;
-    font-weight: 500;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600; /* Semi-bold for buttons */
+    font-size: 0.95rem;
     transition: var(--transition);
     border: none;
     cursor: pointer;
+    letter-spacing: 0.02em; /* Slight letter spacing for readability */
 }
 
 .btn-primary {
@@ -158,6 +270,7 @@ body {
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--box-shadow);
+    background: white; /* Keep tables with white background for readability */
 }
 
     .table thead {
@@ -175,40 +288,104 @@ body {
     border-radius: var(--border-radius);
     border: 1px solid #ddd;
     padding: 0.75rem;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400; /* Regular weight for inputs */
+    font-size: 0.95rem;
     transition: var(--transition);
+    background: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
 }
 
     .form-control:focus, .form-select:focus {
         border-color: var(--primary-color);
         box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+        background: white;
     }
 
 .form-label {
-    font-weight: 600;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600; /* Semi-bold for labels */
     color: var(--dark-color);
     margin-bottom: 0.5rem;
+    font-size: 0.9rem;
 }
 
-/* Alert Messages */
+/* Alert Messages - Enhanced with vibrant colors */
 .alert {
     border-radius: var(--border-radius);
     border: none;
     padding: 1rem 1.5rem;
     box-shadow: var(--box-shadow);
+    backdrop-filter: blur(5px);
+    font-weight: 500;
+    border-left: 4px solid;
+    margin-bottom: 1.5rem;
 }
 
-/* Cards */
+/* Success alerts - for cart additions, successful orders */
+.alert-success {
+    background: linear-gradient(135deg, rgba(39, 174, 96, 0.9), rgba(46, 204, 113, 0.9));
+    color: white;
+    border-left-color: #27ae60;
+    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+}
+
+/* Info alerts - for general information */
+.alert-info {
+    background: linear-gradient(135deg, rgba(74, 144, 226, 0.9), rgba(52, 152, 219, 0.9));
+    color: white;
+    border-left-color: #4a90e2;
+    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+}
+
+/* Warning alerts - for low stock, etc */
+.alert-warning {
+    background: linear-gradient(135deg, rgba(243, 156, 18, 0.9), rgba(241, 196, 15, 0.9));
+    color: white;
+    border-left-color: #f39c12;
+    box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+}
+
+/* Danger/Error alerts */
+.alert-danger {
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.9), rgba(192, 57, 43, 0.9));
+    color: white;
+    border-left-color: #e74c3c;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+/* Primary alerts */
+.alert-primary {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9));
+    color: white;
+    border-left-color: #667eea;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+/* Alert close button styling */
+.alert .btn-close {
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+}
+
+    .alert .btn-close:hover {
+        opacity: 1;
+    }
+
+/* Cards - Semi-transparent to blend with gradient */
 .card {
     border: none;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
     transition: var(--transition);
     overflow: hidden;
+    background: rgba(255, 255, 255, 0.95); /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* Blur effect for modern glass look */
 }
 
     .card:hover {
         transform: translateY(-5px);
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        background: rgba(255, 255, 255, 0.98); /* Slightly more opaque on hover */
     }
 
 .card-header {
@@ -222,31 +399,42 @@ body {
     padding: 1.5rem;
 }
 
-/* Footer - properly positioned */
+/* Footer - elegant dark gradient to complement navbar */
 footer {
-    background: white;
-    border-top: 1px solid #e0e0e0;
+    background: var(--footer-bg);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding: 1rem 0;
-    margin-top: auto; /* pushes footer down when content is short */
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
     width: 100%;
+    height: var(--footer-height);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    flex-shrink: 0;
+    color: rgba(255, 255, 255, 0.9);
 }
 
     footer .container {
         text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
     }
 
     footer a {
-        color: var(--primary-color);
+        color: rgba(255, 255, 255, 0.8);
         text-decoration: none;
         margin-left: 0.5rem;
+        transition: var(--transition);
     }
 
         footer a:hover {
-            color: #3a7bc8;
-            text-decoration: underline;
+            color: white;
+            text-decoration: none;
+            transform: translateY(-1px);
         }
-
 
 /* Utility Classes */
 .shadow-sm {
@@ -269,6 +457,13 @@ footer {
     background: linear-gradient(135deg, var(--primary-color) 0%, #3a7bc8 100%);
 }
 
+/* Glass morphism utility for special elements */
+.glass-morphism {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
 /* Animations */
 @keyframes fadeIn {
     from {
@@ -288,6 +483,14 @@ footer {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    :root {
+        --footer-height: 70px; /* Slightly taller on mobile */
+    }
+
+    body {
+        padding-bottom: var(--footer-height);
+    }
+
     .main-container {
         padding: 1rem;
         margin-top: 1rem;
@@ -297,7 +500,276 @@ footer {
         font-size: 1.2rem;
     }
 
-    .footer {
+    footer {
+        height: var(--footer-height);
         padding: 0.75rem 0;
     }
+}
+
+
+/* Identity Pages Styling - Add this to the end of your site.css file */
+
+/* Identity Account Management Pages */
+.identity-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+    margin: 2rem 0;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+    /* Identity page headings */
+    .identity-container h1,
+    .identity-container h2,
+    .identity-container h3,
+    .identity-container h4 {
+        font-family: 'Lato', sans-serif;
+        color: var(--dark-color);
+        margin-bottom: 1rem;
+    }
+
+    .identity-container h1 {
+        font-size: 2rem;
+        font-weight: 900;
+        margin-bottom: 0.5rem;
+    }
+
+    .identity-container h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #6c757d;
+        margin-bottom: 2rem;
+    }
+
+/* Identity navigation tabs */
+.nav-pills {
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 12px;
+    padding: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+    .nav-pills .nav-link {
+        color: var(--dark-color) !important;
+        border-radius: 8px !important;
+        font-weight: 500;
+        padding: 0.75rem 1.5rem;
+        margin: 0 0.25rem;
+        transition: all 0.3s ease;
+        border: none;
+    }
+
+        .nav-pills .nav-link:hover {
+            background: rgba(102, 126, 234, 0.2);
+            color: var(--primary-color) !important;
+            transform: translateY(-1px);
+        }
+
+        .nav-pills .nav-link.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            color: white !important;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+/* Identity forms */
+.identity-container .form-floating {
+    margin-bottom: 1.5rem;
+}
+
+    .identity-container .form-floating > .form-control,
+    .identity-container .form-floating > .form-select {
+        background: rgba(255, 255, 255, 0.9);
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        font-family: 'Lato', sans-serif;
+        font-size: 1rem;
+        padding: 1rem 0.75rem 0.5rem 0.75rem;
+        transition: all 0.3s ease;
+    }
+
+        .identity-container .form-floating > .form-control:focus,
+        .identity-container .form-floating > .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(74, 144, 226, 0.15);
+            background: white;
+        }
+
+    .identity-container .form-floating > label {
+        font-family: 'Lato', sans-serif;
+        font-weight: 500;
+        color: #6c757d;
+        padding: 1rem 0.75rem;
+    }
+
+/* Identity buttons */
+.identity-container .btn {
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    letter-spacing: 0.02em;
+}
+
+.identity-container .btn-primary {
+    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+    border: none;
+    color: white;
+    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+}
+
+    .identity-container .btn-primary:hover {
+        background: linear-gradient(135deg, #357abd 0%, #2968a8 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+    }
+
+.identity-container .btn-outline-secondary {
+    border: 2px solid #6c757d;
+    color: #6c757d;
+    background: transparent;
+}
+
+    .identity-container .btn-outline-secondary:hover {
+        background: #6c757d;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+/* Identity specific content sections */
+.identity-container .row {
+    margin: 0;
+}
+
+.identity-container .col-md-6 {
+    padding: 1rem;
+}
+
+/* Identity alerts */
+.identity-container .alert {
+    border-radius: 12px;
+    border: none;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    border-left: 4px solid;
+}
+
+/* Identity validation messages */
+.identity-container .text-danger {
+    color: #e74c3c !important;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+}
+
+.identity-container .validation-summary-errors ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.identity-container .validation-summary-errors li {
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 6px;
+    border-left: 3px solid #e74c3c;
+}
+
+/* Identity description text */
+.identity-container p {
+    font-family: 'Lato', sans-serif;
+    line-height: 1.6;
+    color: #6c757d;
+}
+
+/* Two-factor authentication specific styling */
+.identity-container .verification-code-input {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.5rem;
+}
+
+/* Recovery codes styling */
+.identity-container .recovery-codes {
+    background: rgba(248, 249, 250, 0.9);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-left: 4px solid var(--primary-color);
+}
+
+    .identity-container .recovery-codes code {
+        background: white;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-family: 'Courier New', monospace;
+        border: 1px solid #e9ecef;
+    }
+
+/* Profile picture section */
+.identity-container .profile-picture {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+    .identity-container .profile-picture img {
+        border-radius: 50%;
+        border: 4px solid white;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+/* Mobile responsiveness for Identity pages */
+@media (max-width: 768px) {
+    .identity-container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+        .identity-container h1 {
+            font-size: 1.75rem;
+        }
+
+        .identity-container h2 {
+            font-size: 1.25rem;
+        }
+
+    .nav-pills {
+        flex-direction: column;
+    }
+
+        .nav-pills .nav-link {
+            margin: 0.25rem 0;
+            text-align: center;
+        }
+
+    .identity-container .btn {
+        width: 100%;
+        margin-bottom: 0.75rem;
+    }
+}
+
+/* Ensure Identity pages use the identity container styling */
+[data-page-path^="/Identity/Account/Manage"] .main-container,
+[data-page-path^="/Identity/Account/"] .main-container {
+    background: transparent;
+    padding: 1rem;
+}
+
+/* Target specific Identity pages */
+body:has([action*="/Identity/Account/"]) .main-container {
+    background: transparent;
+    box-shadow: none;
+}
+
+/* Alternative targeting for Identity pages */
+.main-container:has(form[action*="/Identity/Account/"]) {
+    background: transparent;
+    box-shadow: none;
+    padding: 1rem;
 }

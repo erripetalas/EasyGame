@@ -2,11 +2,14 @@
 
 namespace EasyGame.Services
 {
+    /// <summary>
+    /// Manages application roles and default admin setup.
+    /// Handles role creation and automatic role assignment for users.
+    /// </summary>
     public class Roles
     {
-        public static async Task CreateRoles(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+        public static async Task CreateRoles(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager) // creates Owner and Customer roles and sets up default admin
         {
-            // Create Owner and Customer roles
             string[] roleNames = { "Owner", "Customer" };
             foreach (var roleName in roleNames)
             {
@@ -18,7 +21,7 @@ namespace EasyGame.Services
             await CreateDefaultOwner(userManager);
         }
 
-        public static async Task FixAllUsersWithoutRoles(UserManager<IdentityUser> userManager)
+        public static async Task FixAllUsersWithoutRoles(UserManager<IdentityUser> userManager) // assigns Customer role to users without roles (except admin)
         {
             var allUsers = userManager.Users.ToList();
 
@@ -26,7 +29,7 @@ namespace EasyGame.Services
             {
                 var roles = await userManager.GetRolesAsync(user);
 
-                // If user has no roles and isn't the owner, assign Customer role
+                // Assign Customer role if user has no roles and isn't admin
                 if (!roles.Any() && user.Email != "Admin@hotmail.com")
                 {
                     await userManager.AddToRoleAsync(user, "Customer");
@@ -34,7 +37,7 @@ namespace EasyGame.Services
             }
         }
 
-        public static async Task EnsureNewUserHasRole(UserManager<IdentityUser> userManager, string email)
+        public static async Task EnsureNewUserHasRole(UserManager<IdentityUser> userManager, string email) // ensures new user has Customer role assigned
         {
             var user = await userManager.FindByEmailAsync(email);
             if (user != null)
@@ -47,7 +50,7 @@ namespace EasyGame.Services
             }
         }
 
-        private static async Task CreateDefaultOwner(UserManager<IdentityUser> userManager)
+        private static async Task CreateDefaultOwner(UserManager<IdentityUser> userManager) // creates default admin account with Owner role
         {
             string ownerEmail = "Admin@hotmail.com";
             string ownerPassword = "Admin123!";

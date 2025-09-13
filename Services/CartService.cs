@@ -1,5 +1,4 @@
-﻿// Services/CartService.cs
-using EasyGame.Data;
+﻿using EasyGame.Data;
 using EasyGame.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,6 +8,13 @@ using System.Threading.Tasks;
 
 namespace EasyGame.Services
 {
+
+    /// <summary>
+    /// Service class responsible for managing shopping cart operations and checkout processes.
+    /// Implements the ICartService interface to provide dependency injection support.
+    /// Handles all cart-related business logic including item management, calculations, and order creation.
+    /// </summary> 
+
     public class CartService : ICartService
     {
         private readonly ApplicationDbContext _context;
@@ -18,7 +24,7 @@ namespace EasyGame.Services
             _context = context;
         }
 
-        public async Task<List<CartItem>> GetCartItemsAsync(string userId)
+        public async Task<List<CartItem>> GetCartItemsAsync(string userId) // gets all cart items for a specific user 
         {
             return await _context.CartItems
                 .Include(c => c.Product)
@@ -26,7 +32,7 @@ namespace EasyGame.Services
                 .ToListAsync();
         }
 
-        public async Task AddToCartAsync(string userId, int productId, int quantity)
+        public async Task AddToCartAsync(string userId, int productId, int quantity) // adds a product to the cart or updates quantity if it already exists
         {
             var existingItem = await _context.CartItems
                 .FirstOrDefaultAsync(c => c.UserId == userId && c.ProductId == productId);
@@ -50,7 +56,7 @@ namespace EasyGame.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateQuantityAsync(int cartItemId, int newQuantity)
+        public async Task UpdateQuantityAsync(int cartItemId, int newQuantity) // updates the quantity of a specific cart item or removes it if quantity is zero or less
         {
             var cartItem = await _context.CartItems.FindAsync(cartItemId);
             if (cartItem != null)
@@ -67,7 +73,7 @@ namespace EasyGame.Services
             }
         }
 
-        public async Task RemoveFromCartAsync(int cartItemId)
+        public async Task RemoveFromCartAsync(int cartItemId) // removes a specific item from the cart
         {
             var cartItem = await _context.CartItems.FindAsync(cartItemId);
             if (cartItem != null)
@@ -77,7 +83,7 @@ namespace EasyGame.Services
             }
         }
 
-        public async Task ClearCartAsync(string userId)
+        public async Task ClearCartAsync(string userId) // clears all items from a user's cart
         {
             var cartItems = await _context.CartItems
                 .Where(c => c.UserId == userId)
@@ -87,13 +93,13 @@ namespace EasyGame.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<decimal> GetCartTotalAsync(string userId)
+        public async Task<decimal> GetCartTotalAsync(string userId) // calculates the total cost of all items in a user's cart
         {
             var cartItems = await GetCartItemsAsync(userId);
             return cartItems.Sum(item => item.Product.Price * item.Quantity);
         }
 
-        public async Task<Order> CheckoutAsync(string userId)
+        public async Task<Order> CheckoutAsync(string userId) // processes the checkout, creates an order, reduces stock, and clears the cart
         {
             var cartItems = await GetCartItemsAsync(userId);
 

@@ -24,8 +24,29 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="productsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Products
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="productsDropdown">
+                                <li><a class="dropdown-item" asp-controller="Products" asp-action="Index">All Products</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Products" asp-action="Index" asp-route-category="Games">
+                                        <i class="bi bi-controller me-2"></i>Games
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Products" asp-action="Index" asp-route-category="Books">
+                                        <i class="bi bi-book me-2"></i>Books
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Products" asp-action="Index" asp-route-category="Toys">
+                                        <i class="bi bi-box me-2"></i>Toys
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         @if (User?.Identity != null && User.Identity.IsAuthenticated)
                         {
@@ -51,7 +72,6 @@
             </div>
         </nav>
     </header>
-
     <main role="main" class="flex-fill">
         <div class="container">
             <div class="main-container">
@@ -59,15 +79,11 @@
             </div>
         </div>
     </main>
-
-
     <footer>
         <div class="container text-center py-3">
             &copy; 2025 - EasyGame - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

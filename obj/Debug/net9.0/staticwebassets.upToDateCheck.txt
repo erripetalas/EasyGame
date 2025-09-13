@@ -1,6 +1,9 @@
 wwwroot\css\cart.css
 wwwroot\css\login.css
+wwwroot\css\MainHero.css
 wwwroot\css\products.css
+wwwroot\css\register.css
+wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
@@ -63,11 +66,13 @@ wwwroot\lib\jquery\dist\jquery.slim.js
 wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
-wwwroot\css\register.css
-wwwroot\css\site.css
+wwwroot\css\productspage.css
 C:\Users\erri_\source\repos\EasyGame\wwwroot\css\cart.css
 C:\Users\erri_\source\repos\EasyGame\wwwroot\css\login.css
+C:\Users\erri_\source\repos\EasyGame\wwwroot\css\MainHero.css
 C:\Users\erri_\source\repos\EasyGame\wwwroot\css\products.css
+C:\Users\erri_\source\repos\EasyGame\wwwroot\css\register.css
+C:\Users\erri_\source\repos\EasyGame\wwwroot\css\site.css
 C:\Users\erri_\source\repos\EasyGame\wwwroot\favicon.ico
 C:\Users\erri_\source\repos\EasyGame\wwwroot\js\site.js
 C:\Users\erri_\source\repos\EasyGame\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
@@ -129,5 +134,4 @@ C:\Users\erri_\source\repos\EasyGame\wwwroot\lib\jquery\dist\jquery.slim.js
 C:\Users\erri_\source\repos\EasyGame\wwwroot\lib\jquery\dist\jquery.slim.min.js
 C:\Users\erri_\source\repos\EasyGame\wwwroot\lib\jquery\dist\jquery.slim.min.map
 C:\Users\erri_\source\repos\EasyGame\wwwroot\lib\jquery\LICENSE.txt
-C:\Users\erri_\source\repos\EasyGame\wwwroot\css\register.css
-C:\Users\erri_\source\repos\EasyGame\wwwroot\css\site.css
+C:\Users\erri_\source\repos\EasyGame\wwwroot\css\productspage.css

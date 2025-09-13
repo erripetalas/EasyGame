@@ -23,9 +23,22 @@ namespace EasyGame.Controllers
 
         // GET: Products
         [AllowAnonymous]  // Everyone can view products
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string category)
         {
-            return View(await _context.Products.ToListAsync());
+            // Start with all products
+            var products = from p in _context.Products select p;
+
+            // Filter by category if one is specified
+            if (!string.IsNullOrEmpty(category))
+            {
+                products = products.Where(p => p.Category == category);
+            }
+
+            // Pass the current category to the view for display purposes
+            ViewData["CurrentCategory"] = category;
+            ViewData["Title"] = string.IsNullOrEmpty(category) ? "All Products" : $"{category}";
+
+            return View(await products.ToListAsync());
         }
 
         // GET: Products/Details/5
