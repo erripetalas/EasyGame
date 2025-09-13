@@ -407,7 +407,6 @@ C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\refint\EasyGame.dll
 C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\EasyGame.pdb
 C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\EasyGame.genruntimeconfig.cache
 C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\ref\EasyGame.dll
-C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\knos6bs1lc-5hwdgj9ovz.gz
 C:\Users\erri_\source\repos\EasyGame\bin\Debug\net9.0\Microsoft.Data.Sqlite.dll
 C:\Users\erri_\source\repos\EasyGame\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Sqlite.dll
 C:\Users\erri_\source\repos\EasyGame\bin\Debug\net9.0\SQLitePCLRaw.batteries_v2.dll
@@ -434,9 +433,10 @@ C:\Users\erri_\source\repos\EasyGame\bin\Debug\net9.0\runtimes\win-arm\native\e_
 C:\Users\erri_\source\repos\EasyGame\bin\Debug\net9.0\runtimes\win-arm64\native\e_sqlite3.dll
 C:\Users\erri_\source\repos\EasyGame\bin\Debug\net9.0\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\erri_\source\repos\EasyGame\bin\Debug\net9.0\runtimes\win-x86\native\e_sqlite3.dll
-C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\lcjvw8tztv-hy5dz2b64f.gz
-C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\cdytrgv4bu-8x03o6m2mm.gz
-C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\h2v21w0hlf-o3rhhojheh.gz
-C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\kqgnj3flqj-bl9psmsdh5.gz
-C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\za38ef39eu-4yq4zs0c4k.gz
-C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\qfysr1wiss-wtxhqf41sv.gz
+C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\kqgnj3flqj-svw2rdoxrs.gz
+C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\h42j3ajnnj-5hwdgj9ovz.gz
+C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\ruymfsniwz-hy5dz2b64f.gz
+C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\d6s515n4cp-3wilecbc3z.gz
+C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\y5pia6v3bo-wtxhqf41sv.gz
+C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\piysl7dei7-8x03o6m2mm.gz
+C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\7atrxjt8iy-n53hwjay3c.gz

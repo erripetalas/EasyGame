@@ -1,11 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
 @section Styles {
     <link rel="stylesheet" href="~/css/MainHero.css" asp-append-version="true" />
 }
-
 <!-- Hero Section -->
 <section class="hero-section">
     <div class="hero-container">
@@ -24,37 +22,47 @@
             </div>
         </div>
         <div class="hero-stats">
-            <div class="stat-item">
-                <div class="stat-icon">
-                    <i class="bi bi-controller"></i>
+            <!-- Games Button -->
+            <a asp-controller="Products" asp-action="Index" asp-route-category="Games" class="stat-item-link">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="bi bi-controller"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Games</h3>
+                        <p>Latest releases</p>
+                    </div>
                 </div>
-                <div class="stat-content">
-                    <h3>Games</h3>
-                    <p>Latest releases</p>
+            </a>
+
+            <!-- Books Button -->
+            <a asp-controller="Products" asp-action="Index" asp-route-category="Books" class="stat-item-link">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="bi bi-book"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Books</h3>
+                        <p>All genres</p>
+                    </div>
                 </div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-icon">
-                    <i class="bi bi-book"></i>
+            </a>
+
+            <!-- Toys Button -->
+            <a asp-controller="Products" asp-action="Index" asp-route-category="Toys" class="stat-item-link">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="bi bi-box"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Toys</h3>
+                        <p>For all ages</p>
+                    </div>
                 </div>
-                <div class="stat-content">
-                    <h3>Books</h3>
-                    <p>All genres</p>
-                </div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-icon">
-                    <i class="bi bi-box"></i>
-                </div>
-                <div class="stat-content">
-                    <h3>Toys</h3>
-                    <p>For all ages</p>
-                </div>
-            </div>
+            </a>
         </div>
     </div>
 </section>
-
 <!-- Features Section -->
 <section class="features-section">
     <div class="container">

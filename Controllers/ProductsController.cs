@@ -23,7 +23,7 @@ namespace EasyGame.Controllers
 
         // GET: Products
         [AllowAnonymous]  // Everyone can view products
-        public async Task<IActionResult> Index(string category)
+        public async Task<IActionResult> Index(string category = null)
         {
             // Start with all products
             var products = from p in _context.Products select p;
@@ -37,6 +37,9 @@ namespace EasyGame.Controllers
             // Pass the current category to the view for display purposes
             ViewData["CurrentCategory"] = category;
             ViewData["Title"] = string.IsNullOrEmpty(category) ? "All Products" : $"{category}";
+
+            // Optional: Add breadcrumb or category display
+            ViewData["CategoryDisplayName"] = string.IsNullOrEmpty(category) ? "All Products" : category;
 
             return View(await products.ToListAsync());
         }
@@ -63,6 +66,8 @@ namespace EasyGame.Controllers
         // GET: Products/Create - Only Owner
         public IActionResult Create()
         {
+            // Add category options for the dropdown
+            ViewBag.CategoryOptions = new SelectList(new[] { "Games", "Books", "Toys" });
             return View();
         }
 
@@ -75,8 +80,12 @@ namespace EasyGame.Controllers
             {
                 _context.Add(product);
                 await _context.SaveChangesAsync();
+                TempData["Message"] = "Product created successfully!";
                 return RedirectToAction(nameof(Index));
             }
+
+            // Re-populate category options if validation fails
+            ViewBag.CategoryOptions = new SelectList(new[] { "Games", "Books", "Toys" }, product.Category);
             return View(product);
         }
 
@@ -93,6 +102,9 @@ namespace EasyGame.Controllers
             {
                 return NotFound();
             }
+
+            // Add category options for the dropdown
+            ViewBag.CategoryOptions = new SelectList(new[] { "Games", "Books", "Toys" }, product.Category);
             return View(product);
         }
 
@@ -112,6 +124,7 @@ namespace EasyGame.Controllers
                 {
                     _context.Update(product);
                     await _context.SaveChangesAsync();
+                    TempData["Message"] = "Product updated successfully!";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -126,6 +139,9 @@ namespace EasyGame.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            // Re-populate category options if validation fails
+            ViewBag.CategoryOptions = new SelectList(new[] { "Games", "Books", "Toys" }, product.Category);
             return View(product);
         }
 
@@ -156,6 +172,7 @@ namespace EasyGame.Controllers
             if (product != null)
             {
                 _context.Products.Remove(product);
+                TempData["Message"] = "Product deleted successfully!";
             }
 
             await _context.SaveChangesAsync();

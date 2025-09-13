@@ -1,6 +1,6 @@
-﻿/* Hero Section Styles - hero.css */
+﻿
 
-/* Hero Section */
+/* MAIN PAGE CSS STYLE */
 .hero-section {
     min-height: 70vh;
     display: flex;
@@ -146,6 +146,24 @@
     color: #6c757d;
     font-size: 0.9rem;
 }
+
+.stat-item-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+    .stat-item-link:hover {
+        text-decoration: none;
+        color: inherit;
+        transform: translateY(-2px);
+        opacity: 0.9;
+    }
+
+        .stat-item-link:hover .stat-item {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
 
 /* Features Section */
 .features-section {
