@@ -91,22 +91,52 @@ p, span, div, li {
 .navbar {
     background: var(--navbar-bg) !important;
     box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
-    padding: 1rem 0;
+    padding: 0.75rem 0; /* Slightly more padding for better proportions */
     flex-shrink: 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    min-height: 70px; /* Ensure consistent navbar height */
+}
+
+/* Navbar Logo Styling */
+.navbar-logo {
+    height: 120px; /* Sized to fit within navbar */
+    width: auto;
+    margin-right: 0.75rem;
+    transition: var(--transition);
 }
 
 .navbar-brand {
+    display: flex;
+    align-items: center;
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 1.3rem; /* Slightly smaller to balance with logo */
     color: white !important;
     transition: var(--transition);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 0.5rem 0;
 }
 
-    .navbar-brand:hover {
-        transform: scale(1.05);
-        color: #f0f0f0 !important;
+.brand-text {
+    margin-left: 0.5rem;
+}
+
+.navbar-brand:hover {
+    transform: scale(1.05);
+    color: #f0f0f0 !important;
+}
+
+    .navbar-brand:hover .navbar-logo {
+        transform: scale(1.1);
+    }
+
+/* Alternative: Logo-only version */
+.navbar-brand.logo-only {
+    font-size: 0;
+}
+
+    .navbar-brand.logo-only .navbar-logo {
+        height: 40px; /* Slightly larger when no text */
+        margin-right: 0;
     }
 
 .nav-link {
@@ -496,8 +526,17 @@ footer {
         margin-top: 1rem;
     }
 
-    .navbar-brand {
-        font-size: 1.2rem;
+    .navbar {
+        min-height: 60px;
+        padding: 0.5rem 0;
+    }
+
+    .navbar-logo {
+        height: 30px;
+    }
+
+    .brand-text {
+        font-size: 1.1rem;
     }
 
     footer {
@@ -506,10 +545,27 @@ footer {
     }
 }
 
+@media (max-width: 576px) {
+    .navbar-logo {
+        height: 28px;
+    }
 
-/* Identity Pages Styling - Add this to the end of your site.css file */
+    /* Hide text on very small screens to save space */
+    .brand-text {
+        display: none;
+    }
 
-/* Identity Account Management Pages */
+    .navbar-logo {
+        margin-right: 0;
+        height: 32px; /* Compensate for hidden text */
+    }
+
+    .navbar {
+        min-height: 55px;
+    }
+}
+
+/* Identity Pages Styling */
 .identity-container {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -520,7 +576,6 @@ footer {
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-    /* Identity page headings */
     .identity-container h1,
     .identity-container h2,
     .identity-container h3,

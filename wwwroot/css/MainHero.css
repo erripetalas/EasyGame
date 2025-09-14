@@ -1,7 +1,4 @@
-﻿
-
-/* MAIN PAGE CSS STYLE */
-.hero-section {
+﻿.hero-section {
     min-height: 70vh;
     display: flex;
     align-items: center;
@@ -212,63 +209,4 @@
     color: #6c757d;
     line-height: 1.5;
     margin: 0;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .hero-section {
-        min-height: 60vh;
-        padding: 2rem 0;
-    }
-
-    .hero-container {
-        padding: 0 1rem;
-    }
-
-    .hero-title {
-        font-size: 2.5rem;
-    }
-
-    .hero-subtitle {
-        font-size: 1.1rem;
-        margin-bottom: 2rem;
-    }
-
-    .hero-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .btn-hero {
-        width: 100%;
-        max-width: 280px;
-        justify-content: center;
-    }
-
-    .hero-stats {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-
-    .stat-item {
-        padding: 1rem;
-    }
-
-    .feature-card {
-        margin-bottom: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-title {
-        font-size: 2rem;
-    }
-
-    .hero-subtitle {
-        font-size: 1rem;
-    }
-
-    .features-section {
-        padding: 2rem 0;
-    }
 }

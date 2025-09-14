@@ -1,7 +1,13 @@
-﻿body {
+﻿/* ========================================
+   AUTHENTICATION PAGES CSS - CLEANED
+   ======================================== */
+
+/* Auth page specific background */
+body {
     background-color: #f0f2f5;
 }
 
+/* Container overrides for auth pages */
 .container {
     background-color: transparent !important;
     box-shadow: none !important;
@@ -20,6 +26,7 @@ main {
     background-color: transparent !important;
 }
 
+/* Auth navigation links */
 .auth-links {
     text-align: center;
     margin-top: 20px;
@@ -38,6 +45,7 @@ main {
             text-decoration: underline;
         }
 
+/* Divider text styling */
 .divider-text {
     position: relative;
     text-align: center;

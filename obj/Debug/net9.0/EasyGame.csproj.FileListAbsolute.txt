@@ -433,10 +433,9 @@ C:\Users\erri_\source\repos\EasyGame\bin\Debug\net9.0\runtimes\win-arm\native\e_
 C:\Users\erri_\source\repos\EasyGame\bin\Debug\net9.0\runtimes\win-arm64\native\e_sqlite3.dll
 C:\Users\erri_\source\repos\EasyGame\bin\Debug\net9.0\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\erri_\source\repos\EasyGame\bin\Debug\net9.0\runtimes\win-x86\native\e_sqlite3.dll
-C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\kqgnj3flqj-svw2rdoxrs.gz
 C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\h42j3ajnnj-5hwdgj9ovz.gz
-C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\ruymfsniwz-hy5dz2b64f.gz
+C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\kqgnj3flqj-vhv1585gvi.gz
 C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\d6s515n4cp-3wilecbc3z.gz
 C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\y5pia6v3bo-wtxhqf41sv.gz
-C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\piysl7dei7-8x03o6m2mm.gz
-C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\7atrxjt8iy-n53hwjay3c.gz
+C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\kvtl5gq8nh-lwq23b5z6b.gz
+C:\Users\erri_\source\repos\EasyGame\obj\Debug\net9.0\compressed\7atrxjt8iy-nbn9nafh5z.gz
