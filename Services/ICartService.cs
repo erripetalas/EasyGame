@@ -24,7 +24,7 @@ namespace EasyGame.Services
 
         Task<Order> CheckoutAsync(string userId); // processes checkout: validates stock, creates order, reduces stock, clears cart - throws exception if insufficient stock
 
-        // Stock validation helper methods
+        // Stock validation helper methods found in CartService
         Task<bool> IsStockAvailableAsync(int productId, int requestedQuantity); // checks if requested quantity is available in stock
 
         Task<int> GetAvailableStockAsync(int productId); // gets current available stock for a product

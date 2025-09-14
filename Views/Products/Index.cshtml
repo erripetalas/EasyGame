@@ -1,5 +1,4 @@
-﻿@* Views/Products/Index.cshtml *@
-@model IEnumerable<EasyGame.Models.Product>
+﻿@model IEnumerable<EasyGame.Models.Product>
 @{
     ViewData["Title"] = "Products";
     var currentCategory = ViewData["CurrentCategory"] as string;
@@ -43,10 +42,12 @@
 <div class="products-grid">
     @foreach (var item in Model)
     {
+        <!-- Each product is wrapped in a card -->
         <div class="product-card">
             <div class="product-image">
                 @if (!string.IsNullOrEmpty(item.ImageUrl))
                 {
+                    <!-- Product image with fallback if it fails to load -->
                     <img src="@item.ImageUrl" alt="@item.Name" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
                     <div class="placeholder-image" style="display:none;">
                         @if (item.Category == "Books")
@@ -65,6 +66,7 @@
                 }
                 else
                 {
+                    <!-- Direct placeholder if no image URL -->
                     <div class="placeholder-image">
                         @if (item.Category == "Books")
                         {
